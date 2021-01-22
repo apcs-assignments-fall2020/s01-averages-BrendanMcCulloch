@@ -6,9 +6,9 @@ public class MyMain {
         for (int row = 0; row < mat.length; row++){
             for(int col = 0; col < mat[0].length; col++){
                 c = c + mat[row][col];
-                int j = c/(mat.length * mat[0].length);
             }
         }
+        double j = c/(mat.length * mat[0].length);
         return j;
     }
 
@@ -16,7 +16,8 @@ public class MyMain {
     public static double median(double[][] mat) { 
         double[] order = new double[mat.length * mat[0].length];
         int j = 0;
-        int h = 0;
+        int h = order.length/2;
+        
         for (int row = 0; row < mat.length; row++){
             for (int col = 0; col < mat[0].length; col++){
                  order[j] = mat[row][col];
@@ -24,20 +25,14 @@ public class MyMain {
                  
             }
         }
-        for (int i = 0; i < order.length; i++){
-            if (order[h] > order[h+1]){
-                h++;
-                return order[order.length/2];
-            }
-            if (order[h] < order[h+1]){
-                order[h+1] = order[h];
-                order[h] = order[h+1];
-                h++;
-                return order[order.length/2];
-            }
-
-            
+        if (order.length % 2 == 0){
+            double o = (order[h] + order[h-1])/2;
+            return o;
         }
+        else {
+            return order[h];
+        }
+
     }
     
 
@@ -45,7 +40,9 @@ public class MyMain {
     public static double mode(double[][] mat) {
         double[] single = new double[mat.length * mat[0].length];
         int c = 0;
-        int j = 0;
+        int j = 1;
+        int most = 0;
+        double mostnumber = 0;
         for (int row = 0; row < mat.length; row++){
             for (int col = 0; col < mat[0].length; col++){
                 single[c] = mat[row][col];
@@ -54,13 +51,20 @@ public class MyMain {
             }
 
         }
-        for (int i = 0; i < single.length; i++){
-            if (single[i] = single[i+1]){
+        for (int i = 0; i < single.length - 1; i++){
+            if (single[i] == single[i+1]){
                 j++;
+                if (j > most){
+                    most = j;
+                    mostnumber = single[i];
+                }
+            }
+            else{
+                j = 1;
             }
 
         } 
-        return j;
+        return mostnumber;
     }
 
 
